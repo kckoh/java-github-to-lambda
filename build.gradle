@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2' 
 }
 
 repositories {
@@ -8,31 +8,23 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'junit:junit:4.13'
-}
-
-application {
-    mainClass = 'com.example.App'
-}
-
-jar {
-    manifest {
-        attributes 'Main-Class': 'com.example.App'
-    }
-}
-dependencies {
     implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.529')
     implementation 'com.amazonaws:aws-lambda-java-core:1.2.2'
     implementation 'com.amazonaws:aws-lambda-java-events:3.11.0'
-    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'junit:junit:4.13.2' 
 }
 
-task buildZip(type: Zip) {
-    from compileJava
-    from processResources
-    into('lib') {
-        from configurations.runtimeClasspath
+shadowJar {
+    archiveBaseName = 'my-lambda-function'
+    mergeServiceFiles()
+    manifest {
+        attributes 'Main-Class': 'com.example.App' // Or remove this line entirely
     }
 }
-
-build.dependsOn buildZip
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.example.App'
+        )
+    }
+}

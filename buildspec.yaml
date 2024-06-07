@@ -8,5 +8,5 @@ phases:
       - ./gradlew build
   post_build:
     commands:
-      - echo Build completed on `date`
+      - echo Build completed
       - aws lambda update-function-code --function-name test-java --zip-file fileb://build/distributions/java-github-to-lambda.zip

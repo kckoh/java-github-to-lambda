@@ -5,8 +5,8 @@ phases:
     commands:
       - echo Build started on `date`
       # comments
-      - ./gradlew build
+      - ./gradlew shadowJar
   post_build:
     commands:
       - echo Build completed
-      - aws lambda update-function-code --function-name test-java --zip-file fileb://build/distributions/java-github-to-lambda.zip
+      - aws lambda update-function-code --function-name test-java --zip-file fileb://build/distributions/my-lambda-function-all.jar

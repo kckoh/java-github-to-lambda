@@ -9,4 +9,4 @@ phases:
   post_build:
     commands:
       - echo Build completed
-      - aws lambda update-function-code --function-name test-java --zip-file fileb://build/distributions/my-lambda-function-all.jar
+      - aws lambda update-function-code --function-name test-java --zip-file fileb://build/libs/my-lambda-function-all.jar
